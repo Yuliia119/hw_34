@@ -16,6 +16,35 @@ public class MyLinkedList implements MyList {
         }
         size++;
     }
+    public void remove (int index){  // метод ищет и удаляет Node
+        if (index<0 || index>=size){
+            return;
+        }
+        Node current; //переменная, которая указывает на узел, который нужно удалить
+        if (index<size/2){  // делим список пополам
+            current=head;   // ищем с головы
+            for (int i=0; i<index; i++){
+                current=current.next;
+            }
+        }else {
+            current=tail;  // ищем с хвоста
+            for (int i=size-1; i>index; i--){
+                current=current.prev;
+            }
+
+        }
+        if (current.prev !=null){ // проверяем есть ли предыдущий узел
+            current.prev.next=current.next; // исключаем из списка
+        }else {
+            head=current.next;  //иначе удаляемый элемент - голова
+        }
+        if (current.next !=null){  // проверяем есть ли следующий узел
+            current.next.prev=current.prev; // исключаем из списка
+        }else {
+            tail=current.prev;  //иначе удаляемый элемент - хвост
+        }
+        size--;
+    }
 
     @Override
     public int size() { //вернет количество элементов в списке
